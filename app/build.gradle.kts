@@ -1,8 +1,12 @@
+import com.android.build.api.dsl.Packaging
 import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -32,11 +36,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -46,7 +50,20 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1'}"
+            excludes += "/META-INF/gradle/incremental.annotation.processors"
+        }
+    }
+}
+
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
         }
     }
 }
@@ -71,7 +88,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.46.1")
-    implementation("com.google.dagger:hilt-compiler:2.46.1")
+    kapt("com.google.dagger:hilt-compiler:2.46.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Navigation
@@ -79,5 +96,16 @@ dependencies {
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.5.2")
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
+
+    // Compose Destination
+    implementation("io.github.raamcosta.compose-destinations:core:1.8.42-beta")
+    ksp("io.github.raamcosta.compose-destinations:ksp:1.8.42-beta")
+
+    // Google Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.4.3")
 
 }

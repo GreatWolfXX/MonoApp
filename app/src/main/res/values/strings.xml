@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MonoApp</string>
+    
+    <string name="input_menu">Input</string>
+    <string name="calculator_menu">Calculator</string>
+    <string name="report_menu">Report</string>
+    <string name="settings_menu">Settings</string>
 </resources>
