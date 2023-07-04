@@ -108,4 +108,7 @@ dependencies {
     // Google Fonts
     implementation("androidx.compose.ui:ui-text-google-fonts:1.4.3")
 
+    // System UI Controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta")
+
 }
