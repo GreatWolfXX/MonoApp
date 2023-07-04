@@ -1,4 +1,4 @@
-package com.greatwolf.monoapp.ui.components
+package com.greatwolf.monoapp.ui.components.bottomBar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

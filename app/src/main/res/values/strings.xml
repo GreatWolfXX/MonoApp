@@ -5,4 +5,7 @@
     <string name="calculator_menu">Calculator</string>
     <string name="report_menu">Report</string>
     <string name="settings_menu">Settings</string>
+
+    <string name="expense_menu">Expense</string>
+    <string name="income_menu">Income</string>
 </resources>

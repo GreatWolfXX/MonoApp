@@ -19,7 +19,7 @@ val Income = Color(0xFF9AB8FF)
 val Red = Color(0xFFFE7474)
 val Blue = Color(0xFF5986F2)
 
-val BrandingColor = Color(0xFF31C66D)
+val BrandingColor = Color(0xFF5986F2)
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

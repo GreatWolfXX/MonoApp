@@ -3,7 +3,6 @@ package com.greatwolf.monoapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -11,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.greatwolf.monoapp.ui.components.BottomBar
+import com.greatwolf.monoapp.ui.components.bottomBar.BottomBar
 import com.greatwolf.monoapp.ui.screens.NavGraphs
 import com.greatwolf.monoapp.ui.theme.MonoAppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost

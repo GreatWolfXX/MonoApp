@@ -1,15 +1,12 @@
-package com.greatwolf.monoapp.ui.components
+package com.greatwolf.monoapp.ui.components.inputTopBar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,33 +24,24 @@ import com.greatwolf.monoapp.ui.screens.NavGraphs
 import com.greatwolf.monoapp.ui.screens.appCurrentDestinationAsState
 import com.greatwolf.monoapp.ui.screens.destinations.Destination
 import com.greatwolf.monoapp.ui.screens.startAppDestination
+import com.greatwolf.monoapp.ui.theme.BrandingColor
 import com.greatwolf.monoapp.ui.theme.poppins
 import com.ramcosta.composedestinations.navigation.navigate
 
 @Composable
-fun BottomBar(
+fun InputTopBar(
     navController: NavController
 ) {
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
-    val colorBorder = MaterialTheme.colorScheme.tertiary
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .drawBehind {
-                val borderSize = 4.dp.toPx();
-                drawLine(
-                    color = colorBorder,
-                    start = Offset(0f, 0f),
-                    end = Offset(size.width, 0f),
-                    strokeWidth = borderSize
-                )
-            }
             .background(MaterialTheme.colorScheme.surface)
     ) {
-        BottomBarDestination.values().forEach { destination ->
+        InputTopBarDestination.values().forEach { destination ->
             val isSelected = currentDestination == destination.direction
-            NavBarItem(
+            InputTopBarItem(
                 isSelected = isSelected,
                 destination = destination,
                 onClick = { navController.navigate(destination.direction) }
@@ -64,30 +51,32 @@ fun BottomBar(
 }
 
 @Composable
-fun RowScope.NavBarItem(isSelected: Boolean, destination: BottomBarDestination, onClick: () -> Unit) {
-    Column(
+fun RowScope.InputTopBarItem(isSelected: Boolean, destination: InputTopBarDestination, onClick: () -> Unit) {
+    val colorBorder = if(!isSelected) MaterialTheme.colorScheme.tertiary else BrandingColor
+    Box(
         modifier = Modifier
             .weight(1f, true)
             .padding(0.dp)
             .clickable { onClick.invoke() }
+            .drawBehind {
+                val borderSize = 1.dp.toPx();
+                drawLine(
+                    color = colorBorder,
+                    start = Offset(0f, size.height),
+                    end = Offset(size.width, size.height),
+                    strokeWidth = borderSize
+                )
+            }
             .padding(vertical = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        contentAlignment = Alignment.Center
     ) {
-        Icon(
-            painter = painterResource(
-                id = if(!isSelected) destination.icon else destination.iconSelected
-            ),
-            contentDescription = stringResource(id = destination.label),
-            tint = MaterialTheme.colorScheme.primary
-        )
         Text(
             text = stringResource(id = destination.label),
-            fontSize = 10.sp,
+            fontSize = 16.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Normal,
             fontFamily = poppins,
-            color = MaterialTheme.colorScheme.primary
+            color = if(!isSelected) MaterialTheme.colorScheme.tertiary else BrandingColor
         )
     }
 }
