@@ -8,4 +8,7 @@
 
     <string name="expense_menu">Expense</string>
     <string name="income_menu">Income</string>
+
+    <string name="title_note">Note</string>
+    <string name="title_placeholder">Please input</string>
 </resources>

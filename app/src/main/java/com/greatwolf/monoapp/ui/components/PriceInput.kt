@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -38,7 +39,7 @@ import com.greatwolf.monoapp.ui.theme.Background
 import com.greatwolf.monoapp.ui.theme.poppins
 
 @Composable
-fun PriceEnter(title: String) {
+fun PriceInput(title: String) {
     Column {
         Text(
             text = title,
@@ -54,19 +55,19 @@ fun PriceEnter(title: String) {
 
             CurrencyBlock("\$")
             BasicTextField(
-                value = text,
-                onValueChange = {
-                    text = it
-                },
                 modifier = Modifier
                     .height(56.dp)
-                    .width(338.dp)
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
                     .border(
                         BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
                         RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp)
                     )
                     .padding(top = 4.dp, start = 8.dp),
+                value = text,
+                onValueChange = {
+                    text = it
+                },
                 textStyle = TextStyle(
                     fontSize = 32.sp,
                     fontStyle = FontStyle.Normal,
