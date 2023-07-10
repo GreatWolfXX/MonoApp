@@ -63,7 +63,7 @@ fun BottomBar(
 }
 
 @Composable
-fun RowScope.NavBarItem(isSelected: Boolean, destination: BottomBarDestination, onClick: () -> Unit) {
+private fun RowScope.NavBarItem(isSelected: Boolean, destination: BottomBarDestination, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .weight(1f, true)

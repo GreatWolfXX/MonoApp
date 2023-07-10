@@ -3,6 +3,7 @@ package com.greatwolf.monoapp.ui.components.inputTopBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,7 +52,7 @@ fun InputTopBar(
 }
 
 @Composable
-fun RowScope.InputTopBarItem(isSelected: Boolean, destination: InputTopBarDestination, onClick: () -> Unit) {
+private fun RowScope.InputTopBarItem(isSelected: Boolean, destination: InputTopBarDestination, onClick: () -> Unit) {
     val colorBorder = if(!isSelected) MaterialTheme.colorScheme.tertiary else BrandingColor
     Box(
         modifier = Modifier
