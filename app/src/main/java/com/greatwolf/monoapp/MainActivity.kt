@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -41,8 +42,9 @@ private fun AppInit() {
         bottomBar = {
            BottomBar(navController = navController)
         }
-    ) { _ ->
+    ) { paddingValues ->
         DestinationsNavHost(
+            modifier = Modifier.padding(paddingValues),
             navGraph = NavGraphs.root,
             navController = navController
         )
