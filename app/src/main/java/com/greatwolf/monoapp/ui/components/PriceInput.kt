@@ -93,8 +93,8 @@ private fun CurrencyBlock(currency: String) {
     Box(
         modifier = Modifier
             .height(56.dp)
-            .background(Background)
             .clip(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp))
+            .background(MaterialTheme.colorScheme.background)
             .border(
                 BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
                 RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)

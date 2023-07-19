@@ -36,7 +36,7 @@ fun CalendarSwitch(btnLeft: () -> Unit, btnRight: () -> Unit, dateText: String) 
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
-            .background(Background),
+            .background(MaterialTheme.colorScheme.background),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
