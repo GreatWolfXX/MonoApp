@@ -39,9 +39,7 @@ class MainActivity : ComponentActivity() {
 private fun AppInit() {
     val navController = rememberNavController()
     Scaffold(
-        bottomBar = {
-           BottomBar(navController = navController)
-        }
+
     ) { paddingValues ->
         DestinationsNavHost(
             modifier = Modifier.padding(paddingValues),
