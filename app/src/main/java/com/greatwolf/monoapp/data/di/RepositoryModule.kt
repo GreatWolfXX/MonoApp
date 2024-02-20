@@ -1,8 +1,8 @@
 package com.greatwolf.monoapp.data.di
 
-import com.greatwolf.monoapp.data.db.CategoryItemDao
-import com.greatwolf.monoapp.data.repository.RepositoryImpl
-import com.greatwolf.monoapp.domain.repository.Repository
+import com.greatwolf.monoapp.data.db.ExpenseCategoryItemDao
+import com.greatwolf.monoapp.data.repository.ExpenseRepositoryImpl
+import com.greatwolf.monoapp.domain.repository.ExpenseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +14,9 @@ object RepositoryModule {
 
     @Provides
     fun provideRepository(
-        categoryItemDao: CategoryItemDao
-    ): Repository {
-        return RepositoryImpl(categoryItemDao)
+        categoryItemDao: ExpenseCategoryItemDao
+    ): ExpenseRepository {
+        return ExpenseRepositoryImpl(categoryItemDao)
     }
 
 }

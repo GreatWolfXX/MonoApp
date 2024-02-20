@@ -12,7 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.greatwolf.monoapp.ui.components.bottomBar.BottomBar
+import com.greatwolf.monoapp.ui.components.inputTopBar.InputTopBar
 import com.greatwolf.monoapp.ui.screens.NavGraphs
+import com.greatwolf.monoapp.ui.screens.appCurrentDestinationAsState
+import com.greatwolf.monoapp.ui.screens.destinations.CalculatorScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.Destination
+import com.greatwolf.monoapp.ui.screens.destinations.ExpenseScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.IncomeScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.InputScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.ReportScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.SettingsScreenDestination
+import com.greatwolf.monoapp.ui.screens.startAppDestination
 import com.greatwolf.monoapp.ui.theme.MonoAppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,8 +48,24 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun AppInit() {
     val navController = rememberNavController()
+    val currentDestination: Destination = navController.appCurrentDestinationAsState().value
+        ?: NavGraphs.root.startAppDestination
+    val listScreensWithOutBottomBar =  listOf<Destination>()
+    val listScreensWithTopBar =  listOf<Destination>(
+        ExpenseScreenDestination,
+        IncomeScreenDestination
+    )
     Scaffold(
-
+        bottomBar = {
+            if(!listScreensWithOutBottomBar.contains(currentDestination)) {
+                BottomBar(navController = navController)
+            }
+        },
+        topBar = {
+            if(listScreensWithTopBar.contains(currentDestination)) {
+                InputTopBar(navController = navController)
+            }
+        }
     ) { paddingValues ->
         DestinationsNavHost(
             modifier = Modifier.padding(paddingValues),

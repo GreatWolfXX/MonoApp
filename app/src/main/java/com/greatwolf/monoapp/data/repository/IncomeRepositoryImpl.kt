@@ -1,25 +1,25 @@
 package com.greatwolf.monoapp.data.repository
 
-import com.greatwolf.monoapp.data.db.CategoryItemDao
-import com.greatwolf.monoapp.data.dto.CategoryItemDto
-import com.greatwolf.monoapp.data.toDomain
+import com.greatwolf.monoapp.data.db.IncomeCategoryItemDao
+import com.greatwolf.monoapp.data.dto.IncomeCategoryItemDto
+import com.greatwolf.monoapp.data.mappers.toDomain
 import com.greatwolf.monoapp.domain.model.CategoryItem
-import com.greatwolf.monoapp.domain.repository.Repository
+import com.greatwolf.monoapp.domain.repository.IncomeRepository
 import com.greatwolf.monoapp.domain.util.Result
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor (
-    private val categoryItemDao: CategoryItemDao
-): Repository {
-    override suspend fun getAllCategoryItem(): Result<List<CategoryItem>> {
+class IncomeRepositoryImpl @Inject constructor (
+    private val categoryItemDao: IncomeCategoryItemDao
+): IncomeRepository {
+    override suspend fun getAllIncomeCategoryItem(): Result<List<CategoryItem>> {
         return try {
-            Result.Success(categoryItemDao.getAllCategoryItem().toDomain())
+            Result.Success(categoryItemDao.getAllIncomeCategoryItem().toDomain())
         } catch (exception: Exception) {
             Result.Error(exception)
         }
     }
 
-    override suspend fun insertCategoryItem(categoryItem: CategoryItemDto): Result<Unit> {
+    override suspend fun insertIncomeCategoryItem(categoryItem: IncomeCategoryItemDto): Result<Unit> {
         return try {
             Result.Success(categoryItemDao.insert(categoryItem))
         } catch (exception: Exception) {
@@ -27,7 +27,7 @@ class RepositoryImpl @Inject constructor (
         }
     }
 
-    override suspend fun deleteCategoryItem(categoryItem: CategoryItemDto): Result<Unit> {
+    override suspend fun deleteIncomeCategoryItem(categoryItem: IncomeCategoryItemDto): Result<Unit> {
         return try {
             Result.Success(categoryItemDao.delete(categoryItem))
         } catch (exception: Exception) {
@@ -35,7 +35,7 @@ class RepositoryImpl @Inject constructor (
         }
     }
 
-    override suspend fun updateCategoryItem(categoryItem: CategoryItemDto): Result<Unit> {
+    override suspend fun updateIncomeCategoryItem(categoryItem: IncomeCategoryItemDto): Result<Unit> {
         return try {
             Result.Success(categoryItemDao.update(categoryItem))
         } catch (exception: Exception) {
