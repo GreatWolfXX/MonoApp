@@ -2,9 +2,8 @@ package com.greatwolf.monoapp.ui.screens.expenseScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.greatwolf.monoapp.data.dto.CategoryItemDto
 import com.greatwolf.monoapp.domain.model.CategoryItem
-import com.greatwolf.monoapp.domain.useCase.GetAllCategoryItemUseCase
+import com.greatwolf.monoapp.domain.useCase.GetAllExpenseCategoryItemUseCase
 import com.greatwolf.monoapp.domain.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpenseScreenViewModel @Inject constructor(
-    private val getAllCategoryItemUseCase: GetAllCategoryItemUseCase
+    private val getAllCategoryItemUseCase: GetAllExpenseCategoryItemUseCase
 ) : ViewModel() {
     private val _ExpenseScreenState: MutableStateFlow<ExpenseScreenState> =
         MutableStateFlow(ExpenseScreenState.Loading)

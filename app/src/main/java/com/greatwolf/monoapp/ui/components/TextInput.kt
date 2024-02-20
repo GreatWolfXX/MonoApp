@@ -38,7 +38,10 @@ import com.greatwolf.monoapp.R
 import com.greatwolf.monoapp.ui.theme.poppins
 
 @Composable
-fun NoteInput(title: String) {
+fun TextInput(
+    title: String,
+    placeholder: String = "",
+    isContainsIcon: Boolean = false) {
     Column {
         Text(
             text = title,
@@ -84,7 +87,7 @@ fun NoteInput(title: String) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = stringResource(id = R.string.title_placeholder),
+                        text = placeholder,
                         fontSize = 16.sp,
                         fontStyle = FontStyle.Normal,
                         fontWeight = FontWeight.Normal,
@@ -92,11 +95,13 @@ fun NoteInput(title: String) {
                         color =
                         if(text.text.isEmpty()) MaterialTheme.colorScheme.secondary else Color.Transparent
                     )
-                    Icon(
-                        painter = painterResource(id = R.drawable.camera_ic),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.tertiary
-                    )
+                    if(isContainsIcon) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.camera_ic),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
                 }
                 Box(
                     modifier = Modifier
