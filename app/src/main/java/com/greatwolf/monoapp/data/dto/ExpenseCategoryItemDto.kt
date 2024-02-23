@@ -1,6 +1,7 @@
 package com.greatwolf.monoapp.data.dto
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "expense_category_item")

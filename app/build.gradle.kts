@@ -100,7 +100,7 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
 
     // Compose Destination
-    implementation("io.github.raamcosta.compose-destinations:core:1.11.0-alpha")
+    implementation("io.github.raamcosta.compose-destinations:animations-core:1.11.0-alpha")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.11.0-alpha")
 
     // Google Fonts

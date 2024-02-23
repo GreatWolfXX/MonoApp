@@ -7,43 +7,63 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.greatwolf.monoapp.R
 import com.greatwolf.monoapp.common.listOfDefaultIcons
-import com.greatwolf.monoapp.ui.components.CategoryList
+import com.greatwolf.monoapp.domain.model.CategoryItem
 import com.greatwolf.monoapp.ui.components.TextInput
 import com.greatwolf.monoapp.ui.components.TitleScreen
+import com.greatwolf.monoapp.ui.screens.addCategoryScreen.sections.AddCategoryList
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
 @Composable
-fun AddCategoryScreen() {
+fun AddCategoryScreen(
+    viewModel: AddCategoryScreenViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
+) {
+    val isAdditionalButtonActive = remember { mutableStateOf<Boolean>(false) }
+    val selectedItem = remember { mutableStateOf<CategoryItem?>(null) }
+    val selectedItemText = remember { mutableStateOf(TextFieldValue("")) }
+
     Column(
+        verticalArrangement = Arrangement.SpaceAround,
         modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 24.dp)
+            .padding(horizontal = 16.dp)
+            .padding(top = 24.dp)
             .fillMaxHeight(),
-        verticalArrangement = Arrangement.SpaceAround
     ) {
+        isAdditionalButtonActive.value = selectedItemText.value.text.isNotEmpty() && selectedItem.value != null
         TitleScreen(
             titleScreen = stringResource(id = R.string.title_add_category),
-            additionalButtonText = stringResource(id = R.string.title_add)
+            isAdditionalButtonActive = isAdditionalButtonActive,
+            additionalButtonText = stringResource(id = R.string.title_add),
+            navigator = navigator,
+            additionalButtonOnClick = {
+                if(isAdditionalButtonActive.value) {
+                    selectedItem.value!!.string = selectedItemText.value.text
+                    viewModel.insertIncome(selectedItem.value!!)
+                    navigator.popBackStack()
+                }
+            }
         )
 
         TextInput(
             title = stringResource(id = R.string.title_category_name),
+            text = selectedItemText,
             placeholder = stringResource(id = R.string.title_placeholder),
-            isContainsIcon = true
+            isContainsIcon = false
         )
 
         Spacer(modifier = Modifier.size(24.dp))
-        
-        CategoryList(
-            categoryTitle = stringResource(id = R.string.title_icon),
-            categoryItemList = listOfDefaultIcons,
-            isCategoryContainsTitle = false,
-            onClick = {}
-        )
+
+        AddCategoryList(selectedItem, listOfDefaultIcons)
     }
 }

@@ -23,12 +23,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavOptionsBuilder
 import com.greatwolf.monoapp.ui.screens.NavGraphs
 import com.greatwolf.monoapp.ui.screens.appCurrentDestinationAsState
 import com.greatwolf.monoapp.ui.screens.destinations.Destination
 import com.greatwolf.monoapp.ui.screens.startAppDestination
 import com.greatwolf.monoapp.ui.theme.poppins
 import com.ramcosta.composedestinations.navigation.navigate
+import com.ramcosta.composedestinations.navigation.navigateTo
 
 @Composable
 fun BottomBar(
@@ -56,7 +58,11 @@ fun BottomBar(
             NavBarItem(
                 isSelected = isSelected,
                 destination = destination,
-                onClick = { navController.navigate(destination.direction) }
+                onClick = {
+                    navController.navigate(destination.direction, fun NavOptionsBuilder.() {
+                        launchSingleTop = true
+                    })
+                }
             )
         }
     }

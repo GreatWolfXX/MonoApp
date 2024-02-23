@@ -1,4 +1,4 @@
-package com.greatwolf.monoapp.domain.useCase
+package com.greatwolf.monoapp.domain.useCase.db
 
 import com.greatwolf.monoapp.data.dto.ExpenseCategoryItemDto
 import com.greatwolf.monoapp.domain.repository.ExpenseRepository

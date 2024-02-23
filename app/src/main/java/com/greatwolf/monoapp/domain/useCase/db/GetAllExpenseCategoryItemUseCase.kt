@@ -1,4 +1,4 @@
-package com.greatwolf.monoapp.domain.useCase
+package com.greatwolf.monoapp.domain.useCase.db
 
 import com.greatwolf.monoapp.domain.repository.ExpenseRepository
 import javax.inject.Inject

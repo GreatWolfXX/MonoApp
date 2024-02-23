@@ -64,18 +64,16 @@ fun CategoryList(categoryTitle: String,
                         CategoryEdit(title, onClick)
                     }
                 } else {
-//                    isSelected = selectedItem == categoryItem
-//                    Modifier.clickable {
-//                        Log.d("LLOGG", "test")
-//                        selectedItem = categoryItem
-//                    }
+                    isSelected = selectedItem == categoryItem
                     CategoryItemComponent(
                         categoryItem.icon,
                         categoryItem.string,
                         isCategoryContainsIcon,
                         isCategoryContainsTitle,
                         isSelected
-                    )
+                    ) {
+                        selectedItem = categoryItem
+                    }
                 }
             }
         }

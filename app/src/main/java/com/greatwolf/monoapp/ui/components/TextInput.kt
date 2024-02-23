@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +41,7 @@ import com.greatwolf.monoapp.ui.theme.poppins
 @Composable
 fun TextInput(
     title: String,
+    text: MutableState<TextFieldValue>,
     placeholder: String = "",
     isContainsIcon: Boolean = false) {
     Column {
@@ -53,7 +55,6 @@ fun TextInput(
         )
         Spacer(modifier = Modifier.size(8.dp))
         Row() {
-            var text by remember { mutableStateOf(TextFieldValue("")) }
 
             BasicTextField(
                 modifier = Modifier
@@ -65,9 +66,9 @@ fun TextInput(
                         RoundedCornerShape(8.dp)
                     )
                     .padding(top = 4.dp, start = 16.dp, end = 8.dp),
-                value = text,
+                value = text.value,
                 onValueChange = {
-                    text = it
+                    text.value = it
                 },
                 textStyle = TextStyle(
                     fontSize = 16.sp,
@@ -75,7 +76,7 @@ fun TextInput(
                     fontWeight = FontWeight.Normal,
                     fontFamily = poppins,
                     color =
-                    if(text.text.isEmpty()) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
+                    if(text.value.text.isEmpty()) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
                     platformStyle = PlatformTextStyle(
                         includeFontPadding = false
                     )
@@ -93,7 +94,7 @@ fun TextInput(
                         fontWeight = FontWeight.Normal,
                         fontFamily = poppins,
                         color =
-                        if(text.text.isEmpty()) MaterialTheme.colorScheme.secondary else Color.Transparent
+                        if(text.value.text.isEmpty()) MaterialTheme.colorScheme.secondary else Color.Transparent
                     )
                     if(isContainsIcon) {
                         Icon(
