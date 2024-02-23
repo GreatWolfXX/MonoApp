@@ -32,9 +32,10 @@ import com.greatwolf.monoapp.ui.theme.poppins
 fun CategoryItemComponent(
     icon: Int,
     title: String?,
-    isCategoryContainsIcon: Boolean,
-    isCategoryContainsTitle: Boolean,
-    isSelected: Boolean
+    isCategoryContainsIcon: Boolean = true,
+    isCategoryContainsTitle: Boolean = false,
+    isSelected: Boolean,
+    onClick: () -> Unit
 ) {
     val borderColor = if(isSelected) Color.Blue else MaterialTheme.colorScheme.tertiary
     val iconColor = if(isSelected) Color.Blue else MaterialTheme.colorScheme.primary
@@ -44,6 +45,9 @@ fun CategoryItemComponent(
                 BorderStroke(1.dp, borderColor),
                 RoundedCornerShape(8.dp)
             )
+            .clickable {
+                onClick.invoke()
+            }
             .padding(vertical = 12.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally

@@ -3,6 +3,7 @@ package com.greatwolf.monoapp.ui.screens.expenseScreen
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -10,28 +11,31 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.greatwolf.monoapp.R
+import com.greatwolf.monoapp.data.UiState
 import com.greatwolf.monoapp.domain.model.CategoryItem
 import com.greatwolf.monoapp.ui.components.ButtonComponent
 import com.greatwolf.monoapp.ui.components.CalendarSwitch
 import com.greatwolf.monoapp.ui.components.CategoryList
 import com.greatwolf.monoapp.ui.components.PriceInput
 import com.greatwolf.monoapp.ui.components.TextInput
-import com.greatwolf.monoapp.ui.components.inputTopBar.InputNavGraph
 import com.greatwolf.monoapp.ui.screens.destinations.AddCategoryScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@InputNavGraph(start = true)
 @Destination
 @Composable
 fun ExpenseScreen(
     viewModel: ExpenseScreenViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    paddingValues: PaddingValues
 ) {
 
     val state = viewModel.expenseScreenState.collectAsState()
@@ -41,28 +45,32 @@ fun ExpenseScreen(
     ExpenseContent(
         state = state.value,
         viewModel = viewModel,
-        navigator = navigator
+        navigator = navigator,
+        paddingValues = paddingValues
     )
 }
 
 @Composable
 private fun ExpenseContent(
-    state: ExpenseScreenState,
+    state: UiState<List<CategoryItem>>,
     viewModel: ExpenseScreenViewModel,
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    paddingValues: PaddingValues
 ) {
-    Column {
+    Column(
+        Modifier.padding(paddingValues)
+    ) {
         when (state) {
-            is ExpenseScreenState.Success -> {
-                ExpenseSuccess(state.listOfCategoryItem, navigator)
+            is UiState.Success<List<CategoryItem>> -> {
+                ExpenseSuccess(state.data, navigator)
             }
 
-            is ExpenseScreenState.Loading -> {
+            is UiState.Loading -> {
                 Log.d("GREATWOLF", "loading")
             }
 
-            is ExpenseScreenState.Error -> {
-                Log.d("GREATWOLF", "error ${state.exception}")
+            is UiState.Error -> {
+                Log.d("GREATWOLF", "error ${state.errorMessage}")
             }
 
         }
@@ -74,6 +82,7 @@ private fun ExpenseSuccess(
     categoryItemList: List<CategoryItem>,
     navigator: DestinationsNavigator
 ) {
+    val text = remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
         modifier = Modifier
@@ -90,6 +99,7 @@ private fun ExpenseSuccess(
             PriceInput(stringResource(id = R.string.expense_menu))
             TextInput(
                 title = stringResource(id = R.string.title_note),
+                text = text,
                 placeholder = stringResource(id = R.string.title_placeholder),
                 isContainsIcon = true
             )

@@ -14,7 +14,7 @@ interface ExpenseCategoryItemDao {
     @Query("SELECT * FROM expense_category_item")
     suspend fun getAllExpenseCategoryItem(): List<ExpenseCategoryItemDto>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(expenseCategoryItem: ExpenseCategoryItemDto)
 
     @Update

@@ -19,6 +19,7 @@ object DatabaseModule {
     @Provides
     fun provideExpenseCategoryItemDao(appDatabase: AppDatabase): ExpenseCategoryItemDao = appDatabase.expenseCategoryItemDao()
 
+    @Provides
     fun provideIncomeCategoryItemDao(appDatabase: AppDatabase): IncomeCategoryItemDao = appDatabase.incomeCategoryItemDao()
 
     @Provides

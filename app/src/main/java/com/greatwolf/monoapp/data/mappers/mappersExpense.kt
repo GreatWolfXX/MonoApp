@@ -9,3 +9,8 @@ fun ExpenseCategoryItemDto.toDomain() = CategoryItem(
     icon = icon,
     string = string
 )
+
+fun CategoryItem.toExpenseDTO() = ExpenseCategoryItemDto(
+    icon = icon,
+    string = string
+)
