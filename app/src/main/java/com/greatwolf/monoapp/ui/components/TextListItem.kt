@@ -5,9 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,11 +32,10 @@ fun TextListItem(
             .clickable {
                 onClick.invoke()
             }
-            .padding(vertical = 12.dp),
+            .padding(vertical = 32.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.size(8.dp))
         Text(
             text = title,
             fontSize = 12.sp,
@@ -47,6 +44,5 @@ fun TextListItem(
             fontFamily = poppins,
             color = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.size(8.dp))
     }
 }
