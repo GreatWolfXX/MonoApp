@@ -1,11 +1,13 @@
 package com.greatwolf.monoapp.ui.screens.addCategoryScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,9 +19,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.greatwolf.monoapp.R
 import com.greatwolf.monoapp.common.listOfDefaultIcons
 import com.greatwolf.monoapp.domain.model.CategoryItem
+import com.greatwolf.monoapp.ui.components.CategoryList
 import com.greatwolf.monoapp.ui.components.TextInput
 import com.greatwolf.monoapp.ui.components.TitleScreen
-import com.greatwolf.monoapp.ui.screens.addCategoryScreen.sections.AddCategoryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -34,8 +36,9 @@ fun AddCategoryScreen(
     val selectedItemText = remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
-        verticalArrangement = Arrangement.SpaceAround,
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp)
             .padding(top = 24.dp)
             .fillMaxHeight(),
@@ -64,6 +67,12 @@ fun AddCategoryScreen(
 
         Spacer(modifier = Modifier.size(24.dp))
 
-        AddCategoryList(selectedItem, listOfDefaultIcons)
+        CategoryList(
+            selectedItem,
+            isIconChangedColor = true,
+            isCategoryContainsTitle = false,
+            isContainsLastButton = false,
+            itemList = listOfDefaultIcons
+        )
     }
 }

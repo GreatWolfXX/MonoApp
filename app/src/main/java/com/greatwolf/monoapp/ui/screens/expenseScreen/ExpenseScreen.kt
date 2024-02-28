@@ -27,6 +27,8 @@ import com.greatwolf.monoapp.ui.components.CategoryList
 import com.greatwolf.monoapp.ui.components.PriceInput
 import com.greatwolf.monoapp.ui.components.TextInput
 import com.greatwolf.monoapp.ui.screens.destinations.AddCategoryScreenDestination
+import com.greatwolf.monoapp.ui.screens.destinations.EditCategoryScreenDestination
+import com.greatwolf.monoapp.ui.theme.Red
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -82,6 +84,8 @@ private fun ExpenseSuccess(
     categoryItemList: List<CategoryItem>,
     navigator: DestinationsNavigator
 ) {
+    val selectedItem = remember { mutableStateOf<CategoryItem?>(null) }
+    val listOfExpenseIcons = ArrayList(categoryItemList)
     val text = remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
@@ -111,24 +115,17 @@ private fun ExpenseSuccess(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             CategoryList(
-                categoryTitle = stringResource(id = R.string.title_category),
-                categoryItemList = ArrayList(categoryItemList),
-                onClick = {
-                    navigator.navigate(AddCategoryScreenDestination)
-                },
-                title = stringResource(id = R.string.title_edit)
-            )
+                selectedItem,
+                titleLastButton = stringResource(id = R.string.title_edit),
+                itemList = listOfExpenseIcons
+            ) {
+                navigator.navigate(EditCategoryScreenDestination)
+            }
             ButtonComponent(
                 {},
                 false,
                 stringResource(id = R.string.title_submit)
             )
         }
-
-//        CategoryList(
-//            categoryTitle = stringResource(id = R.string.title_icon),
-//            categoryItemList = listOfDefaultIcons,
-//            isCategoryContainsTitle = false
-//        )
     }
 }

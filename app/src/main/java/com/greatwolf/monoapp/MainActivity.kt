@@ -33,8 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MonoAppTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.surface
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     AppInit()
                 }
@@ -53,6 +52,7 @@ private fun AppInit() {
     )
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         bottomBar = {
             AnimatedContent(
                 targetState = !listScreensWithOutBottomBar.contains(currentDestination),
