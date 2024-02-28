@@ -16,18 +16,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.greatwolf.monoapp.R
 import com.greatwolf.monoapp.domain.model.CategoryItem
+import com.greatwolf.monoapp.ui.theme.Blue
 import com.greatwolf.monoapp.ui.theme.poppins
 
 @Composable
 fun CategoryList(
+    titleList: String,
     selectedItem: MutableState<CategoryItem?>,
     selectedColor: Color = Blue,
     itemList : ArrayList<CategoryItem>,
@@ -40,18 +39,19 @@ fun CategoryList(
     var isSelected by remember {
         mutableStateOf(false)
     }
+
     Column {
         Text(
             modifier = Modifier
                 .padding(bottom = 8.dp),
-            text = stringResource(id = R.string.title_icon),
+            text = titleList,
             fontSize = 14.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Normal,
             fontFamily = poppins,
             color = MaterialTheme.colorScheme.secondary
         )
-        if(itemList.isEmpty()) {
+        if(isContainsLastButton) {
             itemList.add(CategoryItem(0, ""))
         }
         LazyVerticalGrid(
@@ -61,12 +61,12 @@ fun CategoryList(
         ) {
             itemsIndexed(itemList) {index, categoryItem ->
                 isSelected = selectedItem.value == categoryItem
-                if(index.inc() == itemList.size && isContainsLastButton) {
+                if(isContainsLastButton && index.inc() == itemList.size) {
                     TextListItem(titleLastButton, onClickLastButton)
                 } else {
                     CategoryListItem(
                         categoryItem.icon,
-                        categoryItem.string,
+                        categoryItem.string.toString(),
                         selectedColor = selectedColor,
                         isIconChangedColor = isIconChangedColor,
                         isCategoryContainsTitle = isCategoryContainsTitle,

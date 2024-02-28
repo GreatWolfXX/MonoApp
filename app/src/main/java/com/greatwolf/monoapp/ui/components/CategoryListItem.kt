@@ -26,15 +26,16 @@ import com.greatwolf.monoapp.ui.theme.poppins
 @Composable
 fun CategoryListItem(
     icon: Int,
-    title: String?,
+    title: String,
     selectedColor: Color,
     isIconChangedColor: Boolean,
-    isCategoryContainsTitle: Boolean = false,
+    isCategoryContainsTitle: Boolean,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
     val borderColor = if(isSelected) selectedColor else MaterialTheme.colorScheme.tertiary
     val iconColor = if(isSelected && isIconChangedColor) selectedColor else MaterialTheme.colorScheme.primary
+
     Column(
         modifier = Modifier
             .border(
@@ -44,27 +45,25 @@ fun CategoryListItem(
             .clickable {
                 onClick.invoke()
             }
-            .padding(vertical = 12.dp),
+            .padding(vertical = if(isCategoryContainsTitle) 12.dp else 25.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.size(8.dp))
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,
             tint = iconColor
         )
-        Spacer(modifier = Modifier.size(8.dp))
         if(isCategoryContainsTitle) {
+            Spacer(modifier = Modifier.size(8.dp))
             Text(
-                text = title.let { "" },
+                text = title,
                 fontSize = 12.sp,
                 fontStyle = FontStyle.Normal,
                 fontWeight = FontWeight.Normal,
                 fontFamily = poppins,
                 color = MaterialTheme.colorScheme.primary
             )
-            Spacer(modifier = Modifier.size(8.dp))
         }
     }
 }

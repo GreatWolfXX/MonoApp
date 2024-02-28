@@ -29,7 +29,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun AddCategoryScreen(
     viewModel: AddCategoryScreenViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    isExpense: Boolean
 ) {
     val isAdditionalButtonActive = remember { mutableStateOf<Boolean>(false) }
     val selectedItem = remember { mutableStateOf<CategoryItem?>(null) }
@@ -43,7 +44,7 @@ fun AddCategoryScreen(
             .padding(top = 24.dp)
             .fillMaxHeight(),
     ) {
-        isAdditionalButtonActive.value = selectedItemText.value.text.isNotEmpty() && selectedItem.value != null
+        isAdditionalButtonActive.value = selectedItemText.value.text.isNotBlank() && selectedItem.value != null
         TitleScreen(
             titleScreen = stringResource(id = R.string.title_add_category),
             isAdditionalButtonActive = isAdditionalButtonActive,
@@ -52,7 +53,11 @@ fun AddCategoryScreen(
             additionalButtonOnClick = {
                 if(isAdditionalButtonActive.value) {
                     selectedItem.value!!.string = selectedItemText.value.text
-                    viewModel.insertIncome(selectedItem.value!!)
+                    if(isExpense) {
+                        viewModel.insertExpense(selectedItem.value!!)
+                    } else {
+                        viewModel.insertIncome(selectedItem.value!!)
+                    }
                     navigator.popBackStack()
                 }
             }
@@ -68,6 +73,7 @@ fun AddCategoryScreen(
         Spacer(modifier = Modifier.size(24.dp))
 
         CategoryList(
+            titleList = stringResource(id = R.string.title_icon),
             selectedItem,
             isIconChangedColor = true,
             isCategoryContainsTitle = false,
