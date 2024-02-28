@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greatwolf.monoapp.R
+import com.greatwolf.monoapp.ui.theme.Blue
 import com.greatwolf.monoapp.ui.theme.poppins
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -28,6 +29,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun TitleScreen(
     titleScreen: String,
     isAdditionalButtonActive: MutableState<Boolean>,
+    additionalButtonColor: Color = Blue,
     additionalButtonText: String = "",
     additionalButtonIcon: Int? = null,
     additionalButtonOnClick: () -> Unit,
@@ -73,7 +75,7 @@ fun TitleScreen(
                 if(!isAdditionalButtonActive.value)
                     MaterialTheme.colorScheme.secondary
                 else
-                    Color.Blue,
+                    additionalButtonColor,
                 modifier = Modifier.clickable(
                     enabled = isAdditionalButtonActive.value
                 ) {
